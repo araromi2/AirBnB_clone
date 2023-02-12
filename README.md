@@ -1,3 +1,13 @@
+# AirBnB_clone
+
+## Description of the project
+
+This project is the AirBnB clone, a simulation of the functionality of the AirBnB website. It allows users to create new places, manage existing places and book reservation for places. The project also includes a command interpreter that allows users to interact with the simulation through the command line.
+
+## Description of the command interpreter
+
+The command interpreter for this project is a shell-like program that allows users to interact with the AirBnB clone simulation. The interpreter is designed to be used in both interactive mode (where users type commands directly into the interpreter) and non-interactive mode (where commands are passed to the interpreter through a file or standard input).
+
 ### How to start the command interpreter
 
 To start the command interpreter, run the following command:
@@ -18,6 +28,7 @@ Once the command interpreter is started, you can use it to interact with the Air
 #### Create a new place
 
 ```(hbnb) create Place```
+
 #### Show a place
 
 ```(hbnb) show Place 1234-1234-1234```
