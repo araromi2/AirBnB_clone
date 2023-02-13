@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module contains the FileStorage class"""
 import json
-from datetime import datetime
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -22,25 +22,20 @@ class FileStorage:
         FileStorage.__objects[key] = obj
 
     def save(self):
-        """serializes __objects to the JSON file (path: __file_path)"""
-        with open(FileStorage.__file_path, mode="w", encoding="utf-8") as f:
-            dct = {key: obj.to_dict() for key, obj in FileStorage.__objects.items()}
-            json.dump(dct, f)
+        """Serialize __objects to the JSON file __file_path."""
+        odict = FileStorage.__objects
+        objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
+        with open(FileStorage.__file_path, "w") as f:
+            json.dump(objdict, f)
 
     def reload(self):
-        """deserializes the JSON file to __objects (only if the JSON file (__file_path) exists ; otherwise, do nothing. If the file doesn’t exist, no exception should be raised)"""
+        """Deserialize the JSON file __file_path to __objects, if it exists."""
         try:
-            with open(FileStorage.__file_path, encoding="utf-8") as f:
-                FileStorage.__objects = {
-                    key: self.class_from_dict(value)
-                    for key, value in json.load(f).items()
-                }
+            with open(FileStorage.__file_path) as f:
+                objdict = json.load(f)
+                for o in objdict.values():
+                    cls_name = o["__class__"]
+                    del o["__class__"]
+                    self.new(eval(cls_name)(**o))
         except FileNotFoundError:
-            pass
-
-    @staticmethod
-    def class_from_dict(dct):
-        """Returns an instance with all attributes already set"""
-        if dct.get("__class__") == "BaseModel":
-            obj = BaseModel(**dct)
-        return obj
+            return
