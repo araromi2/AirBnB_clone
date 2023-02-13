@@ -28,16 +28,14 @@ class FileStorage:
             json.dump(dct, f)
 
     def reload(self):
-        """deserializes the JSON file to __objects (only if the JSON file (__file_path) exists ; otherwise, do nothing. If the file doesn’t exist, no exception should be raised)"""
+        """deserializes the JSON file to __objects"""
         try:
-            with open(FileStorage.__file_path, encoding="utf-8") as f:
-                FileStorage.__objects = {
-                    key: self.class_from_dict(value)
-                    for key, value in json.load(f).items()
-                }
+            with open(FileStorage.__file_path) as f:
+                dct = json.load(f)
+                for key, value in dct.items():
+                    FileStorage.__objects[key] = BaseModel.class_from_dict(value)
         except FileNotFoundError:
-            pass
-
+            return
     @staticmethod
     def class_from_dict(dct):
         """Returns an instance with all attributes already set"""
