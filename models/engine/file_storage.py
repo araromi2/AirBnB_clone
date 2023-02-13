@@ -27,16 +27,21 @@ class FileStorage:
             dct = {key: obj.to_dict() for key, obj in FileStorage.__objects.items()}
             json.dump(dct, f)
 
-    def reload(self):
-        """deserializes the JSON file to __objects"""
+     def reload(self):
+        """Deserialize the JSON file __file_path to __objects, if it exists."""
         try:
             with open(FileStorage.__file_path) as f:
-                dct = json.load(f)
-               for obj in dct.values():
-                    cls_name = obj["__class__"]
-                    obj.pop("__class__")
-                    self.new(eval(cls_name)(**obj))
+                objdict = json.load(f)
+                for o in objdict.values():
+                    cls_name = o["__class__"]
+                    del o["__class__"]
+                    self.new(eval(cls_name)(**o))
         except FileNotFoundError:
-            pass
-
-        
+            return
+            
+    @staticmethod
+    def class_from_dict(dct):
+        """Returns an instance with all attributes already set"""
+        if dct.get("__class__") == "BaseModel":
+            obj = BaseModel(**dct)
+        return obj
