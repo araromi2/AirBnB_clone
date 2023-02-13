@@ -32,13 +32,11 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path) as f:
                 dct = json.load(f)
-                for key, value in dct.items():
-                    FileStorage.__objects[key] = BaseModel.class_from_dict(value)
+               for obj in dct.values():
+                    cls_name = obj["__class__"]
+                    obj.pop("__class__")
+                    self.new(eval(cls_name)(**obj))
         except FileNotFoundError:
-            return
-    @staticmethod
-    def class_from_dict(dct):
-        """Returns an instance with all attributes already set"""
-        if dct.get("__class__") == "BaseModel":
-            obj = BaseModel(**dct)
-        return obj
+            pass
+
+        
