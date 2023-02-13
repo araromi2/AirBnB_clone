@@ -9,11 +9,11 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     def do_quit(self, arg):
-        """Quit command to exit the program"""
+        """Quit command to exit the program."""
         return True
 
     def do_EOF(self, arg):
-        """Quit command to exit the program"""
+        """EOF signal to exit the program."""
         print()
         return True
 
@@ -70,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """Prints all string representation of all instances based or not on the class name"""
         all_instances = models.storage.all()
-        if not arg:
+        if not arg or arg == "":
             for key, value in all_instances.items():
                 print(value)
         else:
