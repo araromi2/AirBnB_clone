@@ -23,8 +23,8 @@
     opacity: 0.9;
 }
 
-.locations,
-.amenities {
+.filters .locations,
+.filters .amenities {
     position: relative;
     float: left;
     display: flex;
@@ -35,7 +35,7 @@
     width: 25%;
 }
 
-.locations {
+.filters .locations {
     border-right: 1px solid #DDDDDD;
 }
 
@@ -74,8 +74,8 @@ li {
     margin-left: 16%
 }
 
-.locations:hover .popover,
-.amenities:hover .popover {
+.filters .locations:hover .popover,
+.filters .amenities:hover .popover {
     display: block;
 }
 
@@ -88,6 +88,6 @@ li {
     margin-bottom: 7%;
 }
 
-.amenities .popover li {
+.filters .amenities .popover li {
     margin-left: 16%;
 }
