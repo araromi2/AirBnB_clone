@@ -1,10 +1,10 @@
 #!/usr/bin/python3
+"""This module contains the console for the AirBnB project"""
 import cmd
 
 
 class HBNBCommand(cmd.Cmd):
     """Command interpreter for HBNB"""
-
     prompt = "(hbnb) "
 
     def do_quit(self, arg):
@@ -12,8 +12,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, arg):
-        """Exit the program when EOF (Ctrl+D) is encountered"""
-        print("")   # Print a new line before exiting
+        """EOF command to exit the program"""
+        print()
         return True
 
     def emptyline(self):
