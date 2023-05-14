@@ -13,12 +13,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """Exit the program when EOF (Ctrl+D) is encountered"""
-        print("") # Print a new line before exiting
+        print("")   # Print a new line before exiting
         return True
 
     def emptyline(self):
         """Do nothing when an empty line is entered"""
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
