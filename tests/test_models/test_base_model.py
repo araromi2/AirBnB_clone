@@ -40,7 +40,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(self.base_model.created_at, datetime)
         self.assertIsInstance(self.base_model.updated_at, datetime)
 
-    def test_str_representation(self):
+    def test_str(self):
         """
         Test the string representation of the instance.
         """
@@ -52,7 +52,7 @@ class TestBaseModel(unittest.TestCase):
         )
         self.assertEqual(expected_str, str(self.base_model))
 
-    def test_save_method(self):
+    def test_save(self):
         """
         Test the 'save' method to ensure 'updated_at' is updated.
         """
@@ -61,13 +61,18 @@ class TestBaseModel(unittest.TestCase):
         new_date = self.base_model.updated_at
         self.assertNotEqual(old_date, new_date)
 
-    def test_to_dict_method(self):
+    def test_to_dict(self):
         """
         Test the 'to_dict' method to ensure correct dictionary representation.
         """
         data = self.base_model.to_dict()
-        self.assertIsInstance(data, dict)
-        self.assertIn('__class__', data)
-        self.assertIn('created_at', data)
-        self.assertIn('updated_at', data)
-        self.assertEqual(data['__class__'], self.base_model.__class__.__name__)
+        self.assertEqual(data['__class__'], 'BaseModel')
+        self.assertEqual(type(data['created_at']), str)
+        self.assertEqual(type(data['updated_at']), str)
+
+    def test_to_dict_and_back(self):
+        data = self.base_model.to_dict()
+        new_model = self.base_model(**data)
+        self.assertEqual(self.base_model.id, new_model.id)
+        self.assertEqual(self.base_model.created_at, new_model.created_at)
+        self.assertEqual(self.base_model.updated_at, new_model.updated_at)

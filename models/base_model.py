@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module for BaseModel class"""
 import uuid
+import models
 from datetime import datetime
 
 
@@ -21,6 +22,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -34,6 +36,7 @@ class BaseModel:
         Save an instance of the class
         """
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """
