@@ -18,7 +18,6 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(self.obj)
         self.storage.save()
 
-
     def test_all(self):
         """
         Test all() returns an empty dictionary if no objects are stored
