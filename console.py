@@ -75,9 +75,9 @@ class HBNBCommand(cmd.Cmd):
                     arg.split()[0],
                     arg.split()[1]
                     )
-            objects = model.storage.all()
+            objects = models.storage.all()
             if obj_key in objects:
-                del objects[obj_key]
+                objects.pop(obj_key)
                 models.storage.save()
             else:
                 print("** no instance found **")
